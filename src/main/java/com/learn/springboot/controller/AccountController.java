@@ -3,26 +3,32 @@ package com.learn.springboot.controller;
 import com.learn.springboot.controller.request.AccountCreateRequest;
 import com.learn.springboot.entity.AccountEntity;
 import com.learn.springboot.repository.AccountRepository;
+import com.learn.springboot.service.AccountService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.security.auth.login.AccountNotFoundException;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/account")
 public class AccountController {
-    private final AccountRepository accountRepository;
+    private final AccountService accountService;
 
     @PostMapping
     public ResponseEntity<AccountEntity> save(@RequestBody AccountCreateRequest body) {
         final var request = body.toAccountEntity();
-        final var result = accountRepository.save(request);
+        final var result = accountService.save(request);
         return ResponseEntity.ok().body(result);
     }
-    @PatchMapping
-    public ResponseEntity<AccountEntity> update(@RequestBody AccountCreateRequest body) {
-        final var request = body.toAccountEntity();
-        final var result = accountRepository.save(request);
-        return ResponseEntity.ok().body(result);
+    @PatchMapping("/{id}")
+    public ResponseEntity<AccountEntity> update(@PathVariable Long id, @RequestBody @Valid AccountCreateRequest body) throws AccountNotFoundException {
+        final var accountEntity = accountService.updateAccount(id, body);
+        if (accountEntity == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(accountEntity);
     }
 }
