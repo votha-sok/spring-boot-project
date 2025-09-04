@@ -22,12 +22,12 @@ public class AuditFilterAspect {
     @Around("@annotation(auditFilter)")
     public Object logAudit(ProceedingJoinPoint joinPoint, AuditFilter auditFilter) throws Throwable {
         long requestNumber = COUNTER.incrementAndGet();
-        String processId =  requestNumber + "-" + UUID.randomUUID().toString().replace("-", "");
+        String processId = requestNumber + "-" + UUID.randomUUID().toString().replace("-", "");
 
         MDC.put("processId", processId);
 
         Instant startTime = Instant.now();
-        log.info("Request to controller start");
+        log.info("Request to controller start : {}", auditFilter.getClass().getSimpleName());
 
         try {
             return joinPoint.proceed();

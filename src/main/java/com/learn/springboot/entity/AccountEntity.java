@@ -28,6 +28,9 @@ public class AccountEntity {
     @Column(name = "account_type")
     private String accountType;
 
+    @Setter
+    private Double balance;
+
     public AccountEntity updateAccount(AccountCreateRequest  body) {
         this.accountNo = body.getAccountNo();
         this.accountType = body.getAccountType();
