@@ -1,8 +1,6 @@
 package com.learn.springboot.entity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "user_roles")
@@ -18,6 +16,8 @@ public class UserRoleEntity {
     // Many-to-one relation with User
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private UserEntity user;
 
     // Many-to-one relation with Role

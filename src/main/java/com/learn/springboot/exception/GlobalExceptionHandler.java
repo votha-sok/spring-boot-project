@@ -1,3 +1,4 @@
+/*
 package com.learn.springboot.exception;
 
 import com.learn.springboot.exception.model.Response;
@@ -65,3 +66,4 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(resp);
     }
 }
+*/
