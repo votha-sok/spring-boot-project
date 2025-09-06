@@ -13,9 +13,10 @@ public record CustomUserDetail(UserEntity user) implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return user.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName())) // role.getName() = "ROLE_ADMIN"
-                .toList();
+        return null; //
+//        // user.getRoles().stream()
+//                .map(role -> new SimpleGrantedAuthority(role.getName())) // role.getName() = "ROLE_ADMIN"
+//                .toList();
     }
 
     @Override

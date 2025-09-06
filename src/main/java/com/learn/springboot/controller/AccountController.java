@@ -19,7 +19,6 @@ import java.util.List;
 public class AccountController {
     private final AccountService accountService;
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<AccountEntity> save(@RequestBody AccountCreateRequest body) {
         final var request = body.toAccountEntity();
@@ -27,7 +26,6 @@ public class AccountController {
         return ResponseEntity.ok().body(result);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/{id}")
     public ResponseEntity<AccountEntity> update(@PathVariable Long id, @RequestBody @Valid AccountCreateRequest body) throws AccountNotFoundException {
         final var accountEntity = accountService.updateAccount(id, body);
@@ -37,13 +35,11 @@ public class AccountController {
         return ResponseEntity.ok().body(accountEntity);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public List<AccountEntity> getAll() {
         return accountService.findAll();
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
     public AccountEntity findById(@PathVariable Long id) {
         return accountService.findById(id);

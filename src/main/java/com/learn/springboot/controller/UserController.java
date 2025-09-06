@@ -1,7 +1,5 @@
 package com.learn.springboot.controller;
 
-import com.learn.springboot.controller.request.AccountCreateRequest;
-import com.learn.springboot.entity.AccountEntity;
 import com.learn.springboot.entity.RoleEntity;
 import com.learn.springboot.entity.UserEntity;
 import com.learn.springboot.service.RoleService;
@@ -9,11 +7,7 @@ import com.learn.springboot.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Set;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
@@ -39,8 +33,22 @@ public class UserController {
         u1.setUserName("john");
         u1.setEmail("john@example.com");
         u1.setPassword(encoder.encode("1234"));
-        u1.setRoles(Set.of(roleUser, roleAdmin));
+//        u1.setRoles(Set.of(roleUser, roleAdmin));
         final var result = userService.save(u1);
-        return ResponseEntity.ok().body(result);
+        return null;
     }
+
+//    @PostMapping("/{userId}/roles/{roleId}")
+//    public UserDto assignRole(@PathVariable Long userId, @PathVariable Long roleId) {
+//        UserEntity updatedUser = userService.addRoleToUser(userId, roleId);
+//        return UserMapper.toDto(updatedUser);
+//    }
+//
+//    @GetMapping
+//    public List<UserDto> getAllUsers() {
+//        return userService.f()
+//                .stream()
+//                .map(UserMapper::toDto)
+//                .toList();
+//    }
 }
