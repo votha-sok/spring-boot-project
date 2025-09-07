@@ -2,9 +2,11 @@ package com.learn.springboot.entity;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "permissions")
@@ -25,4 +27,11 @@ public class PermissionEntity {
 
     @Column(name = "function_order")
     private Integer functionOrder;
+
+
+
+    @OneToMany(mappedBy = "permission", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<FeaturePermissionEntity> featurePermission = new HashSet<>();
 }

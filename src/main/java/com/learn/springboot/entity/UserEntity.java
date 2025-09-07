@@ -26,9 +26,9 @@ public class UserEntity {
     private String phone;
     @Column(name = "password", nullable = false)
     private String password;
-    // mappedBy refers to "user" in UserRoleEntity
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private Set<UserRoleEntity> userRoles = new HashSet<>();
+
+    @Column(name = "is_super_admin")
+    private Boolean isSuperAdmin;
 
     public Set<RoleEntity> getRoles() {
         return userRoles.stream()

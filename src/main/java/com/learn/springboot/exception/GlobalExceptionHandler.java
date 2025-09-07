@@ -1,6 +1,6 @@
-/*
 package com.learn.springboot.exception;
 
+import com.learn.springboot.configuration.annotation.AuditFilter;
 import com.learn.springboot.exception.model.Response;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.UUID;
-
+@AuditFilter
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -27,7 +27,6 @@ public class GlobalExceptionHandler {
         );
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<Response<Object>> handleNotFound(ResourceNotFoundException ex, HttpServletRequest request) {
         String traceId = UUID.randomUUID().toString();
@@ -41,7 +40,6 @@ public class GlobalExceptionHandler {
         );
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
-
     @ExceptionHandler(UnauthorizedException.class)
     public ResponseEntity<Response<Object>> handleUnauthorized(
             UnauthorizedException ex, HttpServletRequest request) {
@@ -66,4 +64,3 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(resp);
     }
 }
-*/

@@ -9,6 +9,7 @@ import com.learn.springboot.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,6 +44,7 @@ public class UserController {
         return userService.save(u1);
     }
 
+
     @PostMapping
     public UserOutputResponse create(@RequestBody UserInputRequest request) {
         return userService.save(request.toDto());
@@ -57,7 +59,7 @@ public class UserController {
     public UserOutputResponse assignRole(@RequestBody @Valid UserRoleInputRequest request) {
         return UserMapper.toDto(userService.addRolesToUser(request));
     }
-
+    @PreAuthorize("hasAuthority('USER_VIEW')")
     @GetMapping
     public List<UserOutputResponse> finAll() {
         return userService.findAll();

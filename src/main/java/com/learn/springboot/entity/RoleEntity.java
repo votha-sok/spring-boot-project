@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "roles")
@@ -28,6 +29,18 @@ public class RoleEntity {
     @EqualsAndHashCode.Exclude
     private Set<UserRoleEntity> userRoles = new HashSet<>();
 
+
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<RoleFeatureEntity> roleFeature = new HashSet<>();
+
+
+    public Set<FeatureEntity> getFeatures() {
+        return roleFeature.stream()
+                .map(RoleFeatureEntity::getFeature)
+                .collect(Collectors.toSet());
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

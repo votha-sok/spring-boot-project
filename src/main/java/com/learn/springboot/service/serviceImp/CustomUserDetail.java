@@ -1,22 +1,23 @@
 package com.learn.springboot.service.serviceImp;
 
 import com.learn.springboot.entity.UserEntity;
+import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Session;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 
-public record CustomUserDetail(UserEntity user) implements UserDetails {
-
+@Slf4j
+public record CustomUserDetail(UserEntity user, Set<GrantedAuthority> authorities) implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null; //
-//        // user.getRoles().stream()
-//                .map(role -> new SimpleGrantedAuthority(role.getName())) // role.getName() = "ROLE_ADMIN"
-//                .toList();
+         return authorities;
     }
 
     @Override
